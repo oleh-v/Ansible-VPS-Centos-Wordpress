@@ -1,0 +1,16 @@
+---
+# Reboot remote mashine
+
+- name: Restart machine
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+
+- name: Waits until remote system is reachable
+  wait_for_connection:
+    delay: 15
+    timeout: 600
+
+- name: Complete msg
+  debug:
+    msg: "Deploy is completed and VPS is ready to use"

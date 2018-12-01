@@ -1,0 +1,9 @@
+---
+# Create cron job for bitrix
+
+- name: Set cron job for Bitrix
+  cron:
+    name: "bitrix cron"
+    minute: "0"
+    hour: "0"
+    job: "/bin/bash /backup/backup.sh > /dev/null 2>&1"

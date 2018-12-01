@@ -1,0 +1,39 @@
+---
+- name: Download WordPress
+#  command: wp core download --allow-root
+  command: wget https://downloads.wordpress.org/release/wordpress-4.9.8.tar.gz
+  args:
+      chdir: "{{ webpath }}/{{ site }}/"
+#  remote_user: "{{ username }}"
+
+- name: Extract WordPress
+#  command: wp core download --allow-root
+  command: tar -zxvf wordpress-4.9.8.tar.gz
+  args:
+    chdir: "{{ webpath }}/{{ site }}/"
+
+- name: Configure WordPress
+  command: wp core config --allow-root
+           --path="{{ webpath }}/{{ site }}/wordpress/"
+           --dbname="{{ dbname }}"
+           --dbuser="{{ dbuser }}"
+           --dbpass="{{ dbpass }}"
+           --dbprefix="{{ db_prefix }}"
+#  remote_user: "{{ username }}"
+
+- name: Install WordPress tables
+  command: wp core install --allow-root
+            --path="{{ webpath }}/{{ site }}/wordpress/"
+            --url="{{ wordpress_home_url }}"
+            --title="{{ wordpress_site_title }}"
+            --admin_user="{{ wordpress_admin_user }}"
+            --admin_password="{{ wordpress_admin_user_pass }}"
+            --admin_email="{{ wordpress_admin_email }}"
+  args:
+      chdir: "{{ webpath }}/{{ site }}/wordpress/"
+#  remote_user: "{{ username }}"
+
+- name: Install WordPress theme
+  command: "wp theme install {{ wordpress_theme }} --activate  --allow-root"
+  args:
+    chdir: "{{ webpath }}/{{ site }}/wordpress/"

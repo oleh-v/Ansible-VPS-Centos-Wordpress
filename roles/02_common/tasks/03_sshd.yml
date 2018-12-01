@@ -1,0 +1,17 @@
+---
+# Setup SSH
+
+- name: configure SSHD
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: "#Port 22"
+    replace: "Port 22"
+
+- name: configure SSHD
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: "#AddressFamily any"
+    replace: "AddressFamily inet"
+
+  notify: restart sshd
+

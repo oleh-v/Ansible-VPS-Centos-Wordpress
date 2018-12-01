@@ -1,0 +1,47 @@
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/{{ site }}/wordpress/
+    ServerName {{ site }}
+    ServerAlias {{ site }} www.{{ site }}
+
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+        RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+#        RewriteCond %{HTTPS} off
+#        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [NE,R=301,L]
+    </IfModule>
+
+    DirectoryIndex index.php index.html
+
+    <Directory "/var/www/html/{{ site }}/wordpress/">
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
+    </Directory>
+
+    <IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml
+	AddOutputFilterByType DEFLATE text/css
+	AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript
+	AddOutputFilterByType DEFLATE application/rss+xml
+    </IfModule>
+
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresByType image/png "access 1 week"
+        ExpiresByType image/gif "access 1 week"
+        ExpiresByType image/jpeg "access 1 week"
+        ExpiresByType text/javascript "access 2 weeks"
+        ExpiresByType text/css "access 2 months"
+        ExpiresByType text/html "modification 4 hours"
+        ExpiresDefault "access 7 days"
+    </IfModule>
+
+    LogLevel warn
+    ErrorLog logs/{{ site }}_error_log
+    CustomLog logs/{{ site }}_access_log combined
+
+#   php_flag display_errors on
+#   php_flag display_startup_errors on
+
+</VirtualHost>

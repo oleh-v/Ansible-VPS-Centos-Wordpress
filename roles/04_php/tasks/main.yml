@@ -1,0 +1,48 @@
+---
+# PHP
+
+- include_vars: ../../group_vars/php_ini.yml
+- include_vars: ../../group_vars/opcache_ini.yml
+
+- name: Install php
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php
+    - php-common
+    - php-cli
+    - php-json
+    - php-opcache
+    - php-cli
+    - php-ldap
+    - php-mysql
+    - php-gd
+    - php-mbstring
+    - php-mcrypt
+    - php-pdo
+    - php-pear
+    - php-xml
+    - php-xmlrpc
+    - php-apcu
+    - php-pecl-apcu
+    - php-intl
+    - php-zip
+
+- name: change php.ini
+  ini_file:
+    dest: /etc/php.ini
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  when: item.option is defined
+  with_items: '{{ php_ini }}'
+
+- name: change opcache.ini
+  ini_file:
+    dest: /etc/php.d/10-opcache.ini
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  when: item.option is defined
+  with_items: '{{ opcache_ini }}'

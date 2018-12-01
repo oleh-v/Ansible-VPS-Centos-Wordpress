@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DB="{{ dbname }}"
+DBUSER="{{ dbuser }}"
+DBPW="{{ dbpass }}"
+WEBPATH="{{ webpath }}"
+SITE="{{ site }}"
+DATE=`date +%Y.%m.%d_%H-%M`
+
+mkdir -p /backup/data/db
+if mysqldump -u $DBUSER -p${DBPW} $DB | gzip > /backup/data/db/dbbackup_${DB}_${DATE}.sql.gz
+then
+cd /backup/data/db && rm `ls -t | awk 'NR>7'`
+fi
+
+mkdir -p /backup/data/www
+if tar zcfP /backup/data/www/${SITE}_${DATE}.tar.gz $WEBPATH/$SITE
+then
+cd /backup/data/www && rm `ls -t | awk 'NR>7'`
+fi

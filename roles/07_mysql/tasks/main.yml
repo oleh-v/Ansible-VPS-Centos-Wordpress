@@ -1,0 +1,4 @@
+---
+- include: 01_setup.yml
+- include: 02_mysql_secure_installation.yml
+- include: 03_user_actions.yml

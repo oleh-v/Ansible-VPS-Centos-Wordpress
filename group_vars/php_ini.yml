@@ -1,0 +1,62 @@
+---
+php_ini:
+
+  - section: Date
+    option: date.timezone
+    value: Europe/Kiev
+
+  - section: PHP
+    option: error_reporting
+    value: 'E_ALL & ~E_NOTICE'
+
+  - section: PHP
+    option: short_open_tag
+    value: On
+
+  - section: PHP
+    option: pcre.recursion_limit
+    value: 100000
+
+  - section: PHP
+    option: mbstring.internal_encoding
+    value: UTF-8
+
+  - section: PHP
+    option: mbstring.func_overload
+    value: 2
+
+  - section: PHP
+    option: mail.log
+    value: syslog
+
+  - section: PHP
+    option: post_max_size
+    value: 64M
+
+  - section: PHP
+    option: upload_max_filesize
+    value: 128M
+
+  - section: PHP
+    option: max_file_uploads
+    value: 50
+
+  - section: PHP
+    option: allow_url_fopen
+    value: On
+
+  - section: PHP
+    option: max_execution_time
+    value: 600
+
+  - section: PHP
+    option: max_input_time
+    value: 600
+
+  - section: PHP
+    option: max_input_vars
+    value: 10000
+
+  - section: PHP
+    option: memory_limit
+    value: 256M

@@ -1,0 +1,15 @@
+---
+
+- name: Create backup dir
+  file:
+    path: /backup
+    owner: "root"
+    group: "root"
+    state: directory
+    mode: 0775
+
+- name: Creates the backup file
+  template:
+    src: backup.sh.j2
+    dest: /backup/backup.sh
+    mode: '0755'

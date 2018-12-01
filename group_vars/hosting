@@ -1,0 +1,65 @@
+---
+# У цьому файлі визначаються змінні, котрі будуть використовуватись під час виконання всього плейбука.
+# Обов'язково потрібно змінити всі значення змінних в секції !!!EDIT!!! на значення для даного клієнта (решта при потребі)
+
+#########!!!EDIT!!!#####################
+#                                      #
+#                                      #
+
+username: dev
+
+# Генерація пароля користувача.
+# Запустити стрічку внизу в консолі, замінивши PASSWORD на потрібний пароль. Відповідь (хеш) скопіювати як значення для змінної userpass.
+# python -c 'import crypt; print crypt.crypt("PASSWORD", "SALTus3e")'
+# Паролем буде служити те, чим замінили "PASSWORD" в команді вище
+
+userpass: SAoP05EQEY.R2
+# Password is: dev
+
+site: wp.test
+
+### MySQL:
+mysql_root: AZ7wBadXScz5ySM
+dbname: wpdev
+dbuser: wpdev
+dbpass: iejfUHde443
+db_prefix: wp_
+
+#                                      #
+#                                      #
+webpath: /var/www/html
+http_port: 80
+https_port: 443
+
+#!!WORDPRESS!!##
+#
+wordpress_home_url: http://wp.test
+wordpress_site_title: Test Site
+wordpress_admin_user: admin
+wordpress_admin_user_pass: 1111
+wordpress_admin_email: test@example.com
+wp_dummy_data: 1
+wordpress_theme: twentyseventeen
+
+wordpress_plugins:
+- wordpress-importer
+- woocommerce
+- disqus-comment-system
+- jetpack
+- wordpress-seo
+- custom-sidebars
+#                                     #
+#########!!!EDIT!!!####################
+
+
+ntpserver: time.google.com
+
+### MYSQL налаштування:
+mariadb_version: 10.2
+mysqlservice: mariadb
+mysql_port: 3306
+
+#repository: https://github.com/..............git
+
+#ansible_user                  : root
+#ansible_ssh_private_key_file  : /root/.ssh/id_rsa

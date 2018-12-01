@@ -1,0 +1,3 @@
+---
+- include: 01_install_nginx.yml
+- include: 02_copy_conf.yml

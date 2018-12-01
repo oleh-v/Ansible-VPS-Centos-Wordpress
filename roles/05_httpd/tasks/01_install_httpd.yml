@@ -1,0 +1,62 @@
+---
+- name: Install httpd and php
+  yum:
+    name: httpd
+    state: present
+
+#- name: Change apache port to 8080
+#  replace:
+#    path: /etc/httpd/conf/httpd.conf
+#    regexp: '^(Listen)\s+80\s*$'
+#    replace: '\1 127.0.0.1:8080'
+#    backup: yes
+
+- name: Change apache user
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: "User apache"
+    replace: "User {{ username }}"
+
+- name: Change apache user group
+  replace:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: "Group apache"
+    replace: "Group {{ username }}"
+
+#- name: Change log format
+#  replace:
+#    path: /etc/httpd/conf/httpd.conf
+#    regexp: 'LogFormat \"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-Agent}i\\\"\" combined'
+#    replace: 'LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined'
+#    backup: yes
+
+#- name: Real-IP in httpd log
+#  blockinfile:
+#    path: /etc/httpd/conf/httpd.conf
+#    block:
+#
+#      KeepAlive off
+#
+#      <IfModule remoteip_module>
+#
+#        RemoteIPHeader X-Forwarded-For
+#
+#        RemoteIPInternalProxy 127.0.0.1
+#
+#      </IfModule>
+#
+#      Header always append X-Frame-Options SAMEORIGIN
+
+
+- name: Chown DocumentRoot
+  file:
+    dest: "{{ webpath }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+
+- name: httpd service state
+  service:
+    name: httpd
+    state: started
+    enabled: yes

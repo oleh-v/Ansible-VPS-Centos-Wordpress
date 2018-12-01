@@ -1,0 +1,22 @@
+---
+# This playbook deploys the whole web application stack in this server.
+
+- name: HOSTING SETUP
+  hosts: hosting
+  remote_user: root
+  roles:
+    - { role: 00_preparing, when: ansible_distribution == "CentOS" }
+    - { role: 01_user, when: ansible_distribution == "CentOS" }
+    - { role: 02_common, when: ansible_distribution == "CentOS" }
+    - { role: 03_files, when: ansible_distribution == "CentOS" }
+    - { role: 04_php, when: ansible_distribution == "CentOS" }
+    - { role: wp-cli, when: ansible_distribution == "CentOS" }
+    - { role: 05_httpd, when: ansible_distribution == "CentOS" }
+#    - { role: 06_nginx, when: ansible_distribution == "CentOS" }
+    - { role: 07_mysql, when: ansible_distribution == "CentOS" }
+    - { role: 08_selinux, when: ansible_distribution == "CentOS" }
+    - { role: 09_firewalld, when: ansible_distribution == "CentOS" }
+    - { role: backup, when: ansible_distribution == "CentOS" }
+    - { role: 10_cron, when: ansible_distribution == "CentOS" }
+    - { role: wp-install, when: ansible_distribution == "CentOS" }
+    - { role: 11_reboot, when: ansible_distribution == "CentOS" }

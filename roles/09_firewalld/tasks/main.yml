@@ -1,0 +1,30 @@
+---
+- include_vars: ../../group_vars/firewalld_service.yml
+- include_vars: ../../group_vars/firewalld_rule.yml
+
+- name: Start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: firewall services
+  firewalld:
+    service: "{{ item.service }}"
+    permanent: "{{ item.permanent }}"
+    state: "{{ item.state }}"
+    immediate: "{{ item.immediate }}"
+  when: item.service is defined
+  with_items: '{{ firewalld_service }}'
+
+- name: Add IP to some zone
+  firewalld:
+    source: "{{ item.source }}"
+    permanent: "{{ item.permanent }}"
+    zone: "{{ item.zone }}"
+    state: "{{ item.state }}"
+    immediate: "{{ item.immediate }}"
+  when: item.source is defined
+  with_items: '{{ firewalld_rule }}'
+
+  notify: restart firewalld

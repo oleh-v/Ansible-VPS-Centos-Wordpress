@@ -1,0 +1,22 @@
+---
+# This playbook does all user's things
+
+- name: Create Application DB User
+  mysql_user:
+    check_implicit_admin: yes
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mysql_root }}"
+    name: "{{ dbuser }}"
+    password: "{{ dbpass }}"
+    priv: "*.*:ALL,GRANT"
+    host: 'localhost'
+    state: present
+
+- name: Create Application Database
+  mysql_db:
+    login_host: localhost
+    login_user: "{{ dbuser }}"
+    login_password: "{{ dbpass }}"
+    name: "{{ dbname }}"
+    state: present

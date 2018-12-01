@@ -1,0 +1,17 @@
+---
+# Setup Postfix
+
+- name: configure POSTFIX
+  replace:
+    path: /etc/postfix/main.cf
+    regexp: "inet_protocols = all"
+    replace: "inet_protocols = ipv4"
+
+- name: configure POSTFIX
+  replace:
+    path: /etc/postfix/main.cf
+    regexp: "^mydestination = .*"
+    replace: "mydestination = localhost"
+
+  notify: restart postfix
+

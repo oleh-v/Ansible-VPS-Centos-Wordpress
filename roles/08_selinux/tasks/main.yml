@@ -1,0 +1,24 @@
+---
+- name: Configure SELinux
+  seboolean:
+    name: "{{ item }}"
+    state: true
+    persistent: yes
+  loop:
+    - "httpd_can_connect_ftp"
+    - "httpd_can_network_connect_db"
+    - "httpd_can_network_memcache"
+    - "httpd_can_network_connect"
+    - "httpd_can_sendmail"
+    - "postfix_local_write_mail_spool"
+    - "ftpd_connect_db"
+    - "ftpd_full_access"
+
+- name: Change context value
+  sefcontext:
+    target: '{{ webpath }}(/.*)?'
+    setype: httpd_sys_rw_content_t
+    state: present
+
+- name: Change context value
+  command: chcon -t httpd_sys_rw_content_t {{ webpath }} -R

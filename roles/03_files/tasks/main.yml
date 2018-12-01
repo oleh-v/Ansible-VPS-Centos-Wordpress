@@ -1,0 +1,24 @@
+---
+- name: create documentroot directory
+  file:
+    path: /var/www/html/{{ site }}
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    state: directory
+    mode: 0775
+
+#- name: Copy the code from repository
+#  git:
+#    repo: "{{ repository }}"
+#    dest: /var/www/html/{{ site }}/
+
+- name: Creates the index.php file
+  template:
+    src: index.php.j2
+    dest: /var/www/html/{{ site }}/index.php
+
+- name: Ensure directories are 0775
+  command: find {{ webpath }} -type d -exec chmod 0775 {} \;
+
+- name: Ensure files are 0664
+  command: find {{ webpath }} -type f -exec chmod 0664 {} \;

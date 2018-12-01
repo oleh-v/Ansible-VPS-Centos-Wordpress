@@ -1,0 +1,35 @@
+---
+# Repositories
+
+- name: Add epel repository
+  yum:
+    name: epel-release
+    state: installed
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: installed
+
+- name: Add official MariaDB repository
+  yum_repository:
+    name: MariaDB
+    description: Official MariaDB repository
+    baseurl: "http://yum.mariadb.org/{{ mariadb_version }}/{{ ansible_distribution|lower|regex_replace('redhat', 'rhel') }}{{ ansible_distribution_major_version }}-amd64"
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: true
+  tags: mariadb
+
+- name: "Remi PHP71 repo"
+  yum:
+    name: "http://rpms.remirepo.net/enterprise/remi-release-7.rpm"
+    state: present
+
+- name: enable remi-php71
+  shell: yum-config-manager --enable remi-php71
+
+- name: enable remi-safe
+  shell: yum-config-manager --enable remi-safe
+
+- name: yum update
+  action: yum name=* state=latest

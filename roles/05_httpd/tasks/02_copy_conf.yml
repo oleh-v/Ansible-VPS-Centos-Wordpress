@@ -1,0 +1,6 @@
+---
+- name: virtualhost file
+  template:
+    src: vhost_80.conf.j2
+    dest: /etc/httpd/conf.d/{{ site }}_80.conf
+  notify: restart httpd

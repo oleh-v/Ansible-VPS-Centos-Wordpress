@@ -1,0 +1,19 @@
+---
+# Install common dependencies
+
+- name: Install common dependencies
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+   - libselinux-python
+   - libsemanage-python
+   - policycoreutils-python
+   - firewalld
+   - mc
+   - net-tools
+   - git
+   - bind-utils
+   - wget
+   - tcpdump
+   - open-vm-tools

@@ -1,0 +1,23 @@
+---
+# Create user accout
+
+- name: Ensure group {{ username }} exists
+  group:
+    name: "{{ username }}"
+    state: present
+
+- name: Ensure group apache exists
+  group:
+    name: apache
+    state: present
+
+- name: create user
+  user:
+    name: "{{ username }}"
+    comment: Owner
+    group: "{{ username }}"
+    groups: apache,wheel,root,ftp
+    shell: /bin/bash
+    password: "{{ userpass }}"
+    createhome: yes
+    state: present

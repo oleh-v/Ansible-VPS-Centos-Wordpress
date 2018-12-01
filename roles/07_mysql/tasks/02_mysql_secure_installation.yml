@@ -1,0 +1,56 @@
+---
+# This playbook does mysql_secure_installation actions
+
+- name: Set root Password
+  mysql_user:
+    check_implicit_admin: yes
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mysql_root }}"
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_root }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+  with_items:
+    - localhost
+    - 127.0.0.1
+
+- name: Remove root access ipv6
+  mysql_user:
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mysql_root }}"
+    name: root
+    host: ::1
+    state: absent
+
+- name: Removes all anonymous user accounts
+  mysql_user:
+    check_implicit_admin: yes
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mysql_root }}"
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: Disallow root login remotely
+  command: 'mysql -ne "{{ item }}"'
+  with_items:
+    - DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1')
+  changed_when: False
+
+- name: Remove TEST database
+  mysql_db:
+    login_host: localhost
+    login_user: root
+    login_password: "{{ mysql_root }}"
+    name: test
+    state: absent
+
+- name: Reload privilege tables
+  command: 'mysql -ne "{{ item }}"'
+  with_items:
+    - FLUSH PRIVILEGES
+  changed_when: False

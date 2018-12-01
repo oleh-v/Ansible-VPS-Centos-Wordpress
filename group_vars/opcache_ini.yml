@@ -1,0 +1,23 @@
+---
+opcache_ini:
+
+  - section: ''
+    option: opcache.enable
+    value: 1
+
+  - section: ''
+    option: opcache.validate_timestamps
+    value: 1
+
+  - section: ''
+    option: opcache.memory_consumption
+    value: 128
+
+  - section: ''
+    option: opcache.max_accelerated_files
+    value: 100000
+
+  - section: ''
+    option: opcache.revalidate_freq
+    value: 0
+

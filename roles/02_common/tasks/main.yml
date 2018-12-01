@@ -1,0 +1,8 @@
+---
+- include: 01_host.yml
+- include: 02_network.yml
+- include: 03_sshd.yml
+- include: 04_postfix.yml
+- include: 05_repo.yml
+- include: 06_pkg.yml
+- include: 07_ntp.yml
