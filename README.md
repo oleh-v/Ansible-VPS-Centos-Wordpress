@@ -1,4 +1,4 @@
-# [Ansible](https://www.ansible.com). Setup web-server. CentOS. + Wordpress + dayly backup script
+# [Ansible](https://www.ansible.com). Setup web-server. CentOS. + Wordpress + daily backup script
 
 This Playbook deploy web-server running under CentOS:
 - hostname
