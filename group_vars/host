@@ -1,6 +1,4 @@
 ---
-# У цьому файлі визначаються змінні, котрі будуть використовуватись під час виконання всього плейбука.
-# Обов'язково потрібно змінити всі значення змінних в секції !!!EDIT!!! на значення для даного клієнта (решта при потребі)
 
 #########!!!EDIT!!!#####################
 #                                      #
@@ -8,21 +6,19 @@
 
 username: dev
 
-# Генерація пароля користувача.
-# Запустити стрічку внизу в консолі, замінивши PASSWORD на потрібний пароль. Відповідь (хеш) скопіювати як значення для змінної userpass.
-# python -c 'import crypt; print crypt.crypt("PASSWORD", "SALTus3e")'
-# Паролем буде служити те, чим замінили "PASSWORD" в команді вище
-
+# Generate Password
+# python -c 'import crypt; print crypt.crypt("dev", "SALTus3e")'
+# Replace "dev" - with your password
 userpass: SAoP05EQEY.R2
 # Password is: dev
 
 site: wp.test
 
 ### MySQL:
-mysql_root: AZ7wBadXScz5ySM
+mysql_root: WZ48XSc39JySv
 dbname: wpdev
 dbuser: wpdev
-dbpass: iejfUHde443
+dbpass: iorfj348ryuG
 db_prefix: wp_
 
 #                                      #
